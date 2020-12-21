@@ -1,24 +1,22 @@
-#/bin/bash
+#!/bin/bash
 
 cd ../library/
-if c++ -c labfunks.cpp; then
+if c++ -fPIC -c labfunks.cpp; then
   echo library compiled
 else
   echo library not compiled
   return
 fi
 
-if ar rc liblabTen.a labfunks.o; then
-  echo static library created
+if c++ -shared -o liblabTenDyn.so labfunks.o; then
+  echo dynamic library created
 else
   echo fail to create library
   return
 fi
+rm *.o
 
-ranlib liblabTen.a
-ar -t liblabTen.a
-
-cd ../static/
+cd ../dynamic/
 if c++ -c main.cpp proj.cpp; then
   echo main program compiled
 else
@@ -26,12 +24,11 @@ else
   return
 fi
 
-if c++ main.o proj.cpp -lpthread -lrt -L../library/ -llabTen -o start; then
+if c++ main.o proj.o -o start -L../library/ -llabTenDyn -ldl; then
   echo main was built
 else
   echo fail to build main
 fi
 
 rm *.o #clear extra files
-
 

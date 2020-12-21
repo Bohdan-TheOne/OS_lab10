@@ -8,16 +8,12 @@ typedef void(*name_t)(int);
 int main(int argc, char** argv) {
 	void *libFirst;
 	libFirst = dlopen("../library/liblabTenDyn.so", RTLD_LAZY);
-	if(libFirst == 0) {
-		cout << "libdyn.so is NOT loaded!" << endl;
-		return -1;
+	if(libFirst) {
+		cout << "library is loaded!" << endl;
 	} else {
-		cout << "libdyn.so is loaded!" << endl;
+		cout << "library is NOT loaded!" << endl;
+		return -1;
 	}
-
-	name_t nameOut;
-	nameOut = (name_t)dlsym(libFirst, "nameOutput");
-	(*nameOut)(5);
 
 	int operation;
 	int number;

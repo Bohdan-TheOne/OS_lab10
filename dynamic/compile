@@ -1,8 +1,0 @@
-#!/bin/bash
-
-cd ../library/
-c++ -fPIC -c labfunks.cpp
-c++ -shared -o liblabTenDyn.so labfunks.o
-cd ../dynamic/
-c++ main.cpp proj.cpp -o start -L../library/ -llabTenDyn -ldl
-
