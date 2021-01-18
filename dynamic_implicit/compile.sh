@@ -16,7 +16,7 @@ else
 fi
 rm *.o
 
-cd ../dynamic/
+cd ../dynamic_implicit/
 if c++ -c main.cpp proj.cpp; then
   echo main program compiled
 else
